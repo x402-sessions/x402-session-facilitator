@@ -1,12 +1,12 @@
 # x402-sessions facilitator
 
-Reference HTTP facilitator for the `session` scheme on Stellar. Companion to the [`x402-sessions`](../x402-sessions) SDK.
+Reference HTTP facilitator for the `session` scheme on Stellar. Companion to the [`x402-sessions`](https://www.npmjs.com/package/x402-sessions) SDK.
 
 Implements the x402 facilitator API (`GET /supported`, `POST /verify`, `POST /settle`) plus a session-management extension (`POST /sessions`, `GET /sessions/:id`) and performs on-chain SAC `transfer_from` calls on Soroban.
 
 ## How it works
 
-1. Client (via `x402-sessions` SDK) signs & submits `approve(user, facilitator, cap, expiration_ledger)` on-chain.
+1. Client (via [`x402-sessions`](https://www.npmjs.com/package/x402-sessions) SDK) signs & submits `approve(user, facilitator, cap, expiration_ledger)` on-chain.
 2. Client `POST`s the tx hash to `/sessions`. Facilitator verifies the on-chain allowance via SAC `allowance()` view, stores a session record in sqlite, returns a `sessionId`.
 3. Client attaches `sessionId` to subsequent `X-PAYMENT` headers on protected requests.
 4. Resource server's x402 middleware calls `/verify` and `/settle`. Facilitator checks the session (cap, expiry, recipient, per-call limit), debits sqlite, executes SAC `transfer_from(facilitator, user, recipient, amount)`.
