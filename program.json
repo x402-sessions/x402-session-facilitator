@@ -1,0 +1,16 @@
+{
+  "program": "silentbid_v3.aleo",
+  "version": "0.1.0",
+  "description": "SilentBid v3 - sealed-bid auction with discoverable auction IDs",
+  "license": "MIT",
+  "leo": "4.0.0",
+  "dependencies": [
+    {
+      "name": "silentbid_usdc.aleo",
+      "location": "network",
+      "path": null,
+      "edition": null
+    }
+  ],
+  "dev_dependencies": null
+}
